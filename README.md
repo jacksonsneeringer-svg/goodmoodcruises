@@ -1,13 +1,12 @@
-# Good Mood Cruises — splash site
+# Good Mood Cruises — splash page
 
-A single-page marketing site for Good Mood Cruises, an independent cruise travel
-agency. No build step, no dependencies: three static files you can drop on any
-host.
+One page. The name, a cruise ship photograph, and nothing else. There are no
+links, no buttons, no forms and no JavaScript — nothing on the page is
+clickable or functional by design.
 
 ```
-index.html    markup + content
+index.html    the page
 styles.css    all styling (custom properties at the top of the file)
-script.js     sticky header, mobile nav, scroll reveals, form handling
 ```
 
 ## Run it locally
@@ -23,37 +22,33 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 Any static host works — GitHub Pages, Netlify, Cloudflare Pages, S3. For GitHub
 Pages, enable Pages on this repo and point it at the branch root.
 
+## The photograph
+
+The background is served straight from the Pexels CDN:
+
+> "Cruise Ship" by David Dibert — https://www.pexels.com/photo/cruise-ship-635512/
+
+To swap it, replace the `src` and `srcset` URLs on the `.photo` image in
+`index.html`. Pexels CDN URLs take `?auto=compress&cs=tinysrgb&w=<width>` for
+sizing.
+
+If the photo ever fails to load, the page falls back to an ocean gradient
+defined on `.stage` in `styles.css`, so the wordmark always stays legible.
+
 ## What to customize
 
 | Thing | Where |
 |---|---|
-| Colors, fonts, spacing | `:root` custom properties at the top of `styles.css` |
-| Copy, itineraries, prices | `index.html` — each section is commented |
-| Card artwork | `.art-*` gradient rules in `styles.css`; swap in photos with `background-image` |
-| Contact details | `index.html` (`#plan` section and footer) and `INBOX` in `script.js` |
-| Reviews | `#reviews` section in `index.html` |
-
-### Placeholders to replace before launch
-
-- **Phone number** `(555) 010-2468` is a reserved fictional number.
-- **Email** `hello@goodmoodcruises.com` appears in `index.html` (twice in the
-  quote section, once in the footer) and as `INBOX` in `script.js`.
-- **Stats, fares and reviews** in the hero, destination cards and `#reviews` are
-  illustrative — swap in real figures and permissioned testimonials.
-- **CLIA / ASTA membership** in the footer — remove if not accurate.
-
-### The quote form
-
-There is no backend, so the form validates in the browser and then opens the
-visitor's email client with the answers prefilled. To post to a real endpoint,
-replace the `window.location.href = 'mailto:...'` line in `script.js` with a
-`fetch()` to your form service or CRM.
+| Colors | `:root` custom properties at the top of `styles.css` |
+| Wordmark type and size | `.line-one` / `.line-two` in `styles.css` |
+| Grade over the photo | `.tint` and `.grain` in `styles.css` |
 
 ## Notes
 
-- Responsive down to 320px; mobile nav below 760px.
-- Honors `prefers-reduced-motion` (drops waves, sun bob and scroll reveals).
-- Skip link, labeled form fields, inline validation messages, visible focus
-  rings, `aria-live` status on submit.
-- Fonts load from Google Fonts with system-serif/sans fallbacks, so the page
+- Responsive down to 320px; uses `svh` so mobile browser chrome never crops the
+  wordmark, plus a short-landscape breakpoint.
+- Honors `prefers-reduced-motion` — the fade-in, ken-burns drift and grain
+  shimmer all resolve to a still frame.
+- Fonts load from Google Fonts with system serif/sans fallbacks, so the page
   still renders offline.
+- `pointer-events: none` on `<body>` keeps the page literally uninteractive.
