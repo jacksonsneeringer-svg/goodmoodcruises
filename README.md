@@ -29,8 +29,8 @@ The background is served straight from the Pexels CDN:
 > "Cruise Ship" by David Dibert — https://www.pexels.com/photo/cruise-ship-635512/
 
 To swap it, replace the `src` and `srcset` URLs on the `.photo` image in
-`index.html` (and the credit line just below the wordmark). Pexels CDN URLs take
-`?auto=compress&cs=tinysrgb&w=<width>` for sizing.
+`index.html`. Pexels CDN URLs take `?auto=compress&cs=tinysrgb&w=<width>` for
+sizing.
 
 If the photo ever fails to load, the page falls back to an ocean gradient
 defined on `.stage` in `styles.css`, so the wordmark always stays legible.
@@ -42,7 +42,6 @@ defined on `.stage` in `styles.css`, so the wordmark always stays legible.
 | Colors | `:root` custom properties at the top of `styles.css` |
 | Wordmark type and size | `.line-one` / `.line-two` in `styles.css` |
 | Grade over the photo | `.tint` and `.grain` in `styles.css` |
-| Photo credit | `.credit` paragraph in `index.html` |
 
 ## Notes
 
